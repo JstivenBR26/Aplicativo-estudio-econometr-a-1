@@ -41,16 +41,16 @@ econometria-app/
 │  ├─ core/
 │  │  ├─ util.js              Utilidades, álgebra matricial, MCO (EL.ols), distribuciones t/F/χ², render de $fórmulas$
 │  │  ├─ store.js             Persistencia local (localStorage con respaldo en memoria), exportar/importar
-│  │  ├─ charts.js            Gráficos SVG propios (ejes, dispersión, histogramas)
+│  │  ├─ charts.js            Gráficos SVG propios (ejes, dispersión, histogramas)`n│  │  ├─ stats.js             Regresión con salida tipo Stata y pruebas (White, BP, RESET, Goldfeld–Quandt, DW, Cochrane–Orcutt, Newey–West, FIV)
 │  │  ├─ quiz.js              Motor de preguntas: calificación pura y renderizado de todos los tipos
 │  │  └─ views.js             Vistas: inicio, contenidos, tema, laboratorio, banco, simulador, seguimiento, fuentes
 │  ├─ content/                SOLO CONTENIDO ACADÉMICO (sin lógica de interfaz)
 │  │  ├─ temas.js             Temas 0–7 (Corte 1)
-│  │  ├─ temas-violaciones.js Corte 2: panorama (T8), multicolinealidad (T9), heteroscedasticidad (T10), autocorrelación (T11)`n│  │  ├─ temas-corte2.js      Contrastes (T12) y ecuaciones simultáneas (T13)`n│  │  ├─ temas-asintotica.js  T14 Teoría asintótica (🚩 grupo profe Sofía; campo sofia:true)
+│  │  ├─ temas-violaciones.js Corte 2: panorama (T8), multicolinealidad (T9), heterocedasticidad (T10), autocorrelación (T11)`n│  │  ├─ temas-corte2.js      Contrastes (T12) y ecuaciones simultáneas (T13)`n│  │  ├─ temas-clase.js       Ajustes de todos los temas al enfoque de las notas de clase (vocabulario, ejemplos, prioridades)`n│  │  ├─ casos.js             Casos de lectura de salidas tipo Stata con datos simulados (motor + configuraciones)`n│  │  ├─ temas-asintotica.js  T14 Teoría asintótica (🚩 grupo profe Sofía; campo sofia:true)
 │  │  ├─ banco-corte1.js      Preguntas del Corte 1
 │  │  ├─ banco-parcial1.js    Simulacro de 5.0 puntos con la estructura del Parcial 1 + más preguntas originales
-│  │  ├─ banco-corte2.js      Preguntas complementarias del Corte 2`n│  │  ├─ banco-violaciones.js Preguntas de panorama y de los tres problemas clásicos`n│  │  └─ banco-asintotica.js  Preguntas de teoría asintótica (grupo profe Sofía)
-│  └─ labs/labs.js, labs2.js  13 laboratorios interactivos
+│  │  ├─ banco-corte2.js      Preguntas complementarias del Corte 2`n│  │  ├─ banco-violaciones.js Preguntas de panorama y de los tres problemas clásicos`n│  │  ├─ banco-asintotica.js  Preguntas de teoría asintótica (grupo profe Sofía)`n│  │  └─ banco-clase.js       Casos con tablas para el simulacro del Corte 2, definiciones, V/F y regresión simple como en clase
+│  └─ labs/labs.js, labs2.js  14 laboratorios interactivos
 ├─ tests/verificar.js         Pruebas automáticas
 └─ docs/ARQUITECTURA.md       Diseño pedagógico y de información
 ```
@@ -91,3 +91,7 @@ Ver `docs/ARQUITECTURA.md` §6 y la sección **Fuentes y alcance** dentro de la 
 
 Un tema con `sofia: true` (ver `temas-asintotica.js`) muestra 🚩 *Grupo profe Sofía* en el menú, la lista de contenidos, el encabezado del tema y cada pregunta asociada, y tiene su propio simulacro. Para marcar otro tema basta añadir ese campo.
 
+
+## Casos con tablas simuladas
+
+EL.caseKit` (en `js/content/casos.js`) genera, con semilla fija, salidas tipo Stata y todas sus pruebas para cuatro problemas (heterocedasticidad, autocorrelación, prueba F, multicolinealidad). Se usan en los temas (`EL.CASOS`) y en el banco (preguntas con `dyn` y `cat`). Para un caso nuevo basta añadir una configuración en `EL.CASE_CFG` (contexto, semilla, parámetros) y **ejecutar `node tests/verificar.js`**, que comprueba que las conclusiones escritas coinciden con los números (por ejemplo, que White rechaza en niveles y no en logaritmos).
